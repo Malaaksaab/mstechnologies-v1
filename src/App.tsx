@@ -12,6 +12,10 @@ import Digital from "./pages/services/Digital";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminSoftware from "./pages/admin/AdminSoftware";
+import AdminSocialMedia from "./pages/admin/AdminSocialMedia";
+import AdminDigital from "./pages/admin/AdminDigital";
+import AdminInvestments from "./pages/admin/AdminInvestments";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +36,10 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/software" element={<AdminSoftware />} />
+          <Route path="/admin/social-media" element={<AdminSocialMedia />} />
+          <Route path="/admin/digital" element={<AdminDigital />} />
+          <Route path="/admin/investments" element={<AdminInvestments />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
