@@ -1,39 +1,40 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Code, 
-  Globe, 
-  Smartphone, 
-  Monitor,
-  Database,
-  Cloud,
-  Layers,
-  ShoppingCart,
-  ArrowRight
-} from 'lucide-react';
+import { Code, ArrowRight, Loader2 } from 'lucide-react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-
-const services = [
-  { icon: Globe, title: 'Website Development', desc: 'Custom responsive websites with modern frameworks', features: ['React/Next.js', 'WordPress', 'E-commerce', 'Landing Pages'] },
-  { icon: Layers, title: 'Web Applications', desc: 'Full-stack web apps with robust backends', features: ['SaaS Platforms', 'Dashboards', 'Portals', 'CRM Systems'] },
-  { icon: Smartphone, title: 'Mobile Apps', desc: 'Native and cross-platform mobile applications', features: ['iOS Apps', 'Android Apps', 'React Native', 'Flutter'] },
-  { icon: Monitor, title: 'Desktop Software', desc: 'Windows, Mac, and Linux desktop applications', features: ['Electron Apps', 'Native Apps', 'POS Systems', 'Tools'] },
-  { icon: Database, title: 'ERP Systems', desc: 'Enterprise resource planning solutions', features: ['Inventory', 'HR Management', 'Accounting', 'Supply Chain'] },
-  { icon: Cloud, title: 'Cloud Solutions', desc: 'Cloud infrastructure and DevOps services', features: ['AWS/Azure', 'CI/CD', 'Microservices', 'Serverless'] },
-  { icon: ShoppingCart, title: 'E-commerce', desc: 'Online stores and marketplace platforms', features: ['Shopify', 'WooCommerce', 'Custom Carts', 'Payment Integration'] },
-  { icon: Code, title: 'Custom APIs', desc: 'RESTful and GraphQL API development', features: ['API Design', 'Integration', 'Documentation', 'Maintenance'] },
-];
+import { ServiceFilters } from '@/components/software/ServiceFilters';
+import { ServiceCard } from '@/components/software/ServiceCard';
+import { BookingModal } from '@/components/software/BookingModal';
+import { useSoftwareServices, SoftwareService, SoftwareCategory } from '@/hooks/useSoftwareServices';
 
 const Software = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<SoftwareCategory | null>(null);
+  const [selectedService, setSelectedService] = useState<SoftwareService | null>(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  const { data: services, isLoading, error } = useSoftwareServices(selectedCategory, searchQuery);
+
+  const handleBook = (service: SoftwareService) => {
+    setSelectedService(service);
+    setIsBookingOpen(true);
+  };
+
+  const handleCloseBooking = () => {
+    setIsBookingOpen(false);
+    setSelectedService(null);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       
       <main className="pt-32 pb-20">
         {/* Hero */}
-        <section className="container mx-auto px-4 mb-20">
+        <section className="container mx-auto px-4 mb-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -53,13 +54,11 @@ const Software = () => {
               From concept to deployment, we build scalable software solutions 
               that drive business growth and digital transformation.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link to="/contact">
-                <Button variant="neon" size="lg">
-                  Start Your Project
-                  <ArrowRight className="w-5 h-5" />
-                </Button>
-              </Link>
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+              <Button variant="neon" size="lg" onClick={() => setIsBookingOpen(true)}>
+                Start Your Project
+                <ArrowRight className="w-5 h-5" />
+              </Button>
               <Link to="/contact">
                 <Button variant="cyber" size="lg">
                   Get Free Quote
@@ -69,46 +68,56 @@ const Software = () => {
           </motion.div>
         </section>
 
+        {/* Filters & Search */}
+        <section className="container mx-auto px-4 mb-12">
+          <ServiceFilters
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+            resultCount={services?.length || 0}
+          />
+        </section>
+
         {/* Services Grid */}
         <section className="container mx-auto px-4 mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              <span className="text-foreground">Our </span>
-              <span className="gradient-text">Services</span>
-            </h2>
-            <p className="text-muted-foreground">Comprehensive software solutions for every business need</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="glass-card-hover p-6 group"
+          {isLoading ? (
+            <div className="flex items-center justify-center py-20">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+              <span className="ml-3 text-muted-foreground">Loading services...</span>
+            </div>
+          ) : error ? (
+            <div className="text-center py-20">
+              <p className="text-destructive mb-4">Failed to load services</p>
+              <Button variant="cyber" onClick={() => window.location.reload()}>
+                Try Again
+              </Button>
+            </div>
+          ) : services && services.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {services.map((service, index) => (
+                <ServiceCard
+                  key={service.id}
+                  service={service}
+                  index={index}
+                  onBook={handleBook}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              <p className="text-muted-foreground mb-4">No services found matching your criteria</p>
+              <Button
+                variant="cyber"
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory(null);
+                }}
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <service.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-heading font-semibold text-foreground mb-2">{service.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{service.desc}</p>
-                <div className="flex flex-wrap gap-2">
-                  {service.features.map((feature) => (
-                    <span key={feature} className="px-2 py-1 text-xs bg-muted/50 text-muted-foreground rounded">
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                Clear Filters
+              </Button>
+            </div>
+          )}
         </section>
 
         {/* Technologies */}
@@ -147,17 +156,22 @@ const Software = () => {
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
               Tell us about your project and get a free consultation with our expert team.
             </p>
-            <Link to="/contact">
-              <Button variant="neon" size="xl">
-                Get Free Consultation
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
+            <Button variant="neon" size="xl" onClick={() => setIsBookingOpen(true)}>
+              Get Free Consultation
+              <ArrowRight className="w-5 h-5" />
+            </Button>
           </motion.div>
         </section>
       </main>
 
       <Footer />
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingOpen}
+        onClose={handleCloseBooking}
+        service={selectedService}
+      />
     </div>
   );
 };
