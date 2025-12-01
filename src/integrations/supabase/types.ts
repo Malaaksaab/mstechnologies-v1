@@ -14,6 +14,105 @@ export type Database = {
   }
   public: {
     Tables: {
+      digital_services: {
+        Row: {
+          category: Database["public"]["Enums"]["digital_category"]
+          created_at: string | null
+          delivery_time: string | null
+          description: string
+          features: string[] | null
+          id: string
+          is_active: boolean | null
+          is_featured: boolean | null
+          max_price: number | null
+          min_price: number | null
+          short_description: string | null
+          slug: string
+          supported_devices: string[] | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["digital_category"]
+          created_at?: string | null
+          delivery_time?: string | null
+          description: string
+          features?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          max_price?: number | null
+          min_price?: number | null
+          short_description?: string | null
+          slug: string
+          supported_devices?: string[] | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["digital_category"]
+          created_at?: string | null
+          delivery_time?: string | null
+          description?: string
+          features?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          max_price?: number | null
+          min_price?: number | null
+          short_description?: string | null
+          slug?: string
+          supported_devices?: string[] | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      investment_plans: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          duration_months: number
+          features: string[] | null
+          id: string
+          is_active: boolean | null
+          is_popular: boolean | null
+          max_deposit: number
+          min_deposit: number
+          name: string
+          profit_rate: number
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          duration_months: number
+          features?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          is_popular?: boolean | null
+          max_deposit: number
+          min_deposit: number
+          name: string
+          profit_rate: number
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          duration_months?: number
+          features?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          is_popular?: boolean | null
+          max_deposit?: number
+          min_deposit?: number
+          name?: string
+          profit_rate?: number
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       service_bookings: {
         Row: {
           budget_range: string | null
@@ -24,7 +123,10 @@ export type Database = {
           customer_phone: string | null
           id: string
           project_details: string
+          quantity: number | null
+          selected_features: string[] | null
           service_id: string | null
+          service_type: string | null
           status: string | null
           ticket_id: string
           timeline: string | null
@@ -39,7 +141,10 @@ export type Database = {
           customer_phone?: string | null
           id?: string
           project_details: string
+          quantity?: number | null
+          selected_features?: string[] | null
           service_id?: string | null
+          service_type?: string | null
           status?: string | null
           ticket_id: string
           timeline?: string | null
@@ -54,7 +159,10 @@ export type Database = {
           customer_phone?: string | null
           id?: string
           project_details?: string
+          quantity?: number | null
+          selected_features?: string[] | null
           service_id?: string | null
+          service_type?: string | null
           status?: string | null
           ticket_id?: string
           timeline?: string | null
@@ -69,6 +177,60 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      social_media_services: {
+        Row: {
+          category: Database["public"]["Enums"]["social_media_category"]
+          created_at: string | null
+          delivery_time: string | null
+          description: string
+          features: string[] | null
+          id: string
+          is_active: boolean | null
+          is_featured: boolean | null
+          max_price: number | null
+          min_price: number | null
+          price_unit: string | null
+          short_description: string | null
+          slug: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["social_media_category"]
+          created_at?: string | null
+          delivery_time?: string | null
+          description: string
+          features?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          max_price?: number | null
+          min_price?: number | null
+          price_unit?: string | null
+          short_description?: string | null
+          slug: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["social_media_category"]
+          created_at?: string | null
+          delivery_time?: string | null
+          description?: string
+          features?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          max_price?: number | null
+          min_price?: number | null
+          price_unit?: string | null
+          short_description?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       software_services: {
         Row: {
@@ -129,6 +291,26 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      digital_category:
+        | "frp_unlock"
+        | "mobile_unlock"
+        | "iphone_bypass"
+        | "apple_id"
+        | "gmail_services"
+        | "android_flash"
+        | "sim_services"
+        | "firmware"
+        | "device_repair"
+      social_media_category:
+        | "youtube"
+        | "instagram"
+        | "facebook"
+        | "twitter"
+        | "tiktok"
+        | "linkedin"
+        | "telegram"
+        | "spotify"
+        | "verified_accounts"
       software_category:
         | "business_management"
         | "education"
@@ -267,6 +449,28 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      digital_category: [
+        "frp_unlock",
+        "mobile_unlock",
+        "iphone_bypass",
+        "apple_id",
+        "gmail_services",
+        "android_flash",
+        "sim_services",
+        "firmware",
+        "device_repair",
+      ],
+      social_media_category: [
+        "youtube",
+        "instagram",
+        "facebook",
+        "twitter",
+        "tiktok",
+        "linkedin",
+        "telegram",
+        "spotify",
+        "verified_accounts",
+      ],
       software_category: [
         "business_management",
         "education",
