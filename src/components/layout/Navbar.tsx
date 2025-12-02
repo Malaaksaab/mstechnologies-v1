@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -11,15 +11,23 @@ const navItems = [
     name: 'Services', 
     href: '#',
     children: [
-      { name: 'Investment Solutions', href: '/services/investment' },
-      { name: 'Software Development', href: '/services/software' },
-      { name: 'Social Media Marketing', href: '/services/social-media' },
-      { name: 'Digital Solutions', href: '/services/digital' },
+      { name: 'Investment Solutions', href: '/services/investment', description: 'Smart investment plans with guaranteed returns' },
+      { name: 'Software Development', href: '/services/software', description: 'Custom software & app development' },
+      { name: 'Social Media Marketing', href: '/services/social-media', description: 'Grow your social presence' },
+      { name: 'Digital Solutions', href: '/services/digital', description: 'Device unlocking & tech services' },
     ]
   },
   { name: 'Calculator', href: '/calculator' },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
+  { 
+    name: 'Company', 
+    href: '#',
+    children: [
+      { name: 'About Us', href: '/about', description: 'Learn about our mission' },
+      { name: 'Careers', href: '/careers', description: 'Join our team' },
+      { name: 'Blog', href: '/blog', description: 'Latest news and insights' },
+      { name: 'Contact', href: '/contact', description: 'Get in touch with us' },
+    ]
+  },
 ];
 
 export const Navbar = () => {
@@ -47,19 +55,28 @@ export const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled 
-          ? "bg-background/80 backdrop-blur-xl border-b border-border/50" 
+          ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-primary/5" 
           : "bg-transparent"
       )}
     >
+      {/* Animated top border */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-60" />
+      
       <nav className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10 flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-lg opacity-20 group-hover:opacity-40 transition-opacity" />
-            <span className="font-display text-xl font-bold gradient-text">MS</span>
-          </div>
+          <motion.div 
+            className="relative w-12 h-12 flex items-center justify-center"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-xl opacity-20 group-hover:opacity-40 transition-opacity" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity" />
+            <span className="font-display text-2xl font-bold gradient-text relative z-10">MS</span>
+          </motion.div>
           <div className="hidden sm:block">
-            <span className="font-heading text-lg font-semibold text-foreground">MS Technologies</span>
+            <span className="font-heading text-lg font-semibold text-foreground block">MS Technologies</span>
+            <span className="text-xs text-muted-foreground">Digital Solutions</span>
           </div>
         </Link>
 
@@ -73,18 +90,26 @@ export const Navbar = () => {
               onMouseLeave={() => setActiveDropdown(null)}
             >
               {item.children ? (
-                <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                <button className={cn(
+                  "flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-lg",
+                  activeDropdown === item.name 
+                    ? "text-primary bg-primary/10" 
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                )}>
                   {item.name}
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className={cn(
+                    "w-4 h-4 transition-transform",
+                    activeDropdown === item.name && "rotate-180"
+                  )} />
                 </button>
               ) : (
                 <Link
                   to={item.href}
                   className={cn(
-                    "px-4 py-2 text-sm font-medium transition-colors",
+                    "px-4 py-2 text-sm font-medium transition-colors rounded-lg",
                     location.pathname === item.href 
-                      ? "text-primary" 
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "text-primary bg-primary/10" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                   )}
                 >
                   {item.name}
@@ -95,18 +120,20 @@ export const Navbar = () => {
               <AnimatePresence>
                 {item.children && activeDropdown === item.name && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full left-0 mt-2 w-64 glass-card p-2 rounded-xl"
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 mt-2 w-72 glass-card p-2 rounded-xl border border-border/50 shadow-xl"
                   >
                     {item.children.map((child) => (
                       <Link
                         key={child.name}
                         to={child.href}
-                        className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
+                        className="block px-4 py-3 text-sm rounded-lg hover:bg-primary/10 transition-colors group"
                       >
-                        {child.name}
+                        <span className="font-medium text-foreground group-hover:text-primary transition-colors">{child.name}</span>
+                        <span className="block text-xs text-muted-foreground mt-0.5">{child.description}</span>
                       </Link>
                     ))}
                   </motion.div>
@@ -118,17 +145,22 @@ export const Navbar = () => {
 
         {/* CTA Buttons */}
         <div className="hidden lg:flex items-center gap-3">
-          <Link to="/admin">
-            <Button variant="ghost" size="sm">Admin</Button>
-          </Link>
           <Link to="/contact">
-            <Button variant="cyber" size="sm">Get Started</Button>
+            <Button variant="ghost" size="sm" className="gap-2">
+              <Sparkles className="w-4 h-4" />
+              Free Consultation
+            </Button>
+          </Link>
+          <Link to="/services/software">
+            <Button size="sm" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground shadow-lg shadow-primary/25">
+              Get Started
+            </Button>
           </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
         <button
-          className="lg:hidden p-2 text-foreground"
+          className="lg:hidden p-2 text-foreground hover:bg-muted/50 rounded-lg transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -149,13 +181,13 @@ export const Navbar = () => {
                 <div key={item.name}>
                   {item.children ? (
                     <div className="space-y-2">
-                      <span className="text-sm font-medium text-muted-foreground">{item.name}</span>
-                      <div className="pl-4 space-y-2">
+                      <span className="text-sm font-semibold text-foreground">{item.name}</span>
+                      <div className="pl-4 space-y-2 border-l-2 border-primary/20">
                         {item.children.map((child) => (
                           <Link
                             key={child.name}
                             to={child.href}
-                            className="block text-sm text-muted-foreground hover:text-primary"
+                            className="block text-sm text-muted-foreground hover:text-primary transition-colors"
                           >
                             {child.name}
                           </Link>
@@ -165,7 +197,10 @@ export const Navbar = () => {
                   ) : (
                     <Link
                       to={item.href}
-                      className="block text-sm font-medium text-foreground hover:text-primary"
+                      className={cn(
+                        "block text-sm font-medium transition-colors",
+                        location.pathname === item.href ? "text-primary" : "text-foreground hover:text-primary"
+                      )}
                     >
                       {item.name}
                     </Link>
@@ -173,11 +208,11 @@ export const Navbar = () => {
                 </div>
               ))}
               <div className="pt-4 flex flex-col gap-3">
-                <Link to="/admin">
-                  <Button variant="outline" className="w-full">Admin Panel</Button>
-                </Link>
                 <Link to="/contact">
-                  <Button variant="neon" className="w-full">Get Started</Button>
+                  <Button variant="outline" className="w-full">Free Consultation</Button>
+                </Link>
+                <Link to="/services/software">
+                  <Button className="w-full bg-gradient-to-r from-primary to-secondary">Get Started</Button>
                 </Link>
               </div>
             </div>
