@@ -18,6 +18,8 @@ import About from "./pages/About";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Careers from "./pages/Careers";
+import Auth from "./pages/Auth";
+import Dashboard from "./pages/Dashboard";
 
 // Legal Pages
 import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
@@ -62,6 +64,8 @@ const App = () => (
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/careers" element={<Careers />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               
               {/* Legal Routes */}
               <Route path="/privacy" element={<PrivacyPolicy />} />

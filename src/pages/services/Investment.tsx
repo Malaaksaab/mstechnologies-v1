@@ -1,14 +1,50 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, Shield, Clock, Calculator, Users, ChevronRight, Check, Loader2 } from 'lucide-react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { useInvestmentPlans } from '@/hooks/useInvestmentPlans';
+import { useInvestmentPlans, InvestmentPlan } from '@/hooks/useInvestmentPlans';
+import { PaymentModal } from '@/components/payment/PaymentModal';
+import { useCreateBooking } from '@/hooks/useServiceBooking';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 
 const Investment = () => {
   const { data: plans, isLoading } = useInvestmentPlans();
+  const { user } = useAuth();
+  const createBooking = useCreateBooking();
+  const [selectedPlan, setSelectedPlan] = useState<InvestmentPlan | null>(null);
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  
   const formatCurrency = (n: number) => new Intl.NumberFormat('en-PK').format(n);
+
+  const handleInvest = (plan: InvestmentPlan) => {
+    if (!user) {
+      toast.error('Please sign in to invest');
+      return;
+    }
+    setSelectedPlan(plan);
+    setIsPaymentOpen(true);
+  };
+
+  const handlePaymentComplete = async (paymentMethod: string, transactionId: string) => {
+    if (!selectedPlan || !user) return;
+    
+    try {
+      await createBooking.mutateAsync({
+        service_id: null,
+        customer_name: user.email?.split('@')[0] || 'Customer',
+        customer_email: user.email || '',
+        project_details: `Investment Plan: ${selectedPlan.name} | Payment Method: ${paymentMethod} | Transaction ID: ${transactionId} | Amount: PKR ${formatCurrency(selectedPlan.min_deposit)}`,
+        budget_range: `PKR ${formatCurrency(selectedPlan.min_deposit)} - ${formatCurrency(selectedPlan.max_deposit)}`,
+      });
+      toast.success('Investment submitted! We will verify your payment shortly.');
+    } catch (error) {
+      toast.error('Failed to submit investment. Please contact support.');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -58,7 +94,13 @@ const Investment = () => {
                     <div className="text-sm"><span className="text-muted-foreground">Duration: </span><span className="text-foreground font-medium">{plan.duration_months} months</span></div>
                   </div>
                   <ul className="space-y-2 mb-6">{plan.features.slice(0, 5).map((f) => <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground"><Check className="w-4 h-4 text-primary flex-shrink-0" />{f}</li>)}</ul>
-                  <Link to="/contact"><Button variant={plan.is_popular ? "neon" : "outline"} className="w-full">Get Started<ChevronRight className="w-4 h-4" /></Button></Link>
+                  <Button 
+                    variant={plan.is_popular ? "neon" : "outline"} 
+                    className="w-full"
+                    onClick={() => handleInvest(plan)}
+                  >
+                    Invest Now<ChevronRight className="w-4 h-4" />
+                  </Button>
                 </motion.div>
               ))}
             </div>
@@ -66,6 +108,17 @@ const Investment = () => {
         </section>
       </main>
       <Footer />
+
+      {/* Payment Modal */}
+      {selectedPlan && (
+        <PaymentModal
+          isOpen={isPaymentOpen}
+          onClose={() => setIsPaymentOpen(false)}
+          amount={selectedPlan.min_deposit}
+          serviceName={`${selectedPlan.name} Investment Plan`}
+          onPaymentComplete={handlePaymentComplete}
+        />
+      )}
     </div>
   );
 };
