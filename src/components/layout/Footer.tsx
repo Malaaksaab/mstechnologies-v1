@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, Youtube, Send } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const footerLinks = {
   services: [
@@ -19,13 +21,19 @@ const footerLinks = {
     { name: 'Terms of Service', href: '/terms' },
     { name: 'Cookie Policy', href: '/cookies' },
   ],
+  support: [
+    { name: 'Help Center', href: '/contact' },
+    { name: 'Investment Calculator', href: '/calculator' },
+    { name: 'Service Booking', href: '/services/software' },
+  ],
 };
 
 const socialLinks = [
-  { name: 'Facebook', icon: Facebook, href: '#' },
-  { name: 'Twitter', icon: Twitter, href: '#' },
-  { name: 'LinkedIn', icon: Linkedin, href: '#' },
-  { name: 'Instagram', icon: Instagram, href: '#' },
+  { name: 'Facebook', icon: Facebook, href: 'https://facebook.com' },
+  { name: 'Twitter', icon: Twitter, href: 'https://twitter.com' },
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com' },
+  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com' },
+  { name: 'YouTube', icon: Youtube, href: 'https://youtube.com' },
 ];
 
 export const Footer = () => {
@@ -34,8 +42,29 @@ export const Footer = () => {
       {/* Top gradient line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
       
+      {/* Newsletter Section */}
+      <div className="border-b border-border/50">
+        <div className="container mx-auto px-4 py-12">
+          <div className="max-w-2xl mx-auto text-center">
+            <h3 className="text-2xl font-heading font-bold text-foreground mb-2">Stay Updated</h3>
+            <p className="text-muted-foreground mb-6">Subscribe to our newsletter for the latest updates, tips, and exclusive offers.</p>
+            <form className="flex gap-3 max-w-md mx-auto">
+              <Input 
+                type="email" 
+                placeholder="Enter your email" 
+                className="flex-1 bg-muted/50"
+              />
+              <Button type="submit" className="gap-2">
+                <Send className="w-4 h-4" />
+                Subscribe
+              </Button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link to="/" className="inline-flex items-center gap-3 mb-6">
@@ -49,7 +78,7 @@ export const Footer = () => {
               </div>
             </Link>
             <p className="text-muted-foreground mb-6 max-w-sm">
-              Innovative solutions for a connected world. Empowering businesses with cutting-edge technology and digital transformation.
+              Your trusted partner for innovative digital solutions, investment opportunities, and technology services. Empowering businesses worldwide since 2020.
             </p>
             
             {/* Contact Info */}
@@ -64,7 +93,7 @@ export const Footer = () => {
               </a>
               <div className="flex items-start gap-3 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-0.5" />
-                <span>Islamabad, Pakistan</span>
+                <span>Blue Area, Islamabad, Pakistan</span>
               </div>
             </div>
           </div>
@@ -97,6 +126,20 @@ export const Footer = () => {
             </ul>
           </div>
 
+          {/* Support */}
+          <div>
+            <h4 className="font-heading font-semibold text-foreground mb-4">Support</h4>
+            <ul className="space-y-3">
+              {footerLinks.support.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Legal */}
           <div>
             <h4 className="font-heading font-semibold text-foreground mb-4">Legal</h4>
@@ -119,11 +162,13 @@ export const Footer = () => {
           </p>
           
           {/* Social Links */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {socialLinks.map((social) => (
               <a
                 key={social.name}
                 href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 flex items-center justify-center rounded-lg bg-muted/50 text-muted-foreground hover:bg-primary/20 hover:text-primary transition-all"
                 aria-label={social.name}
               >
