@@ -200,6 +200,45 @@ export type Database = {
         }
         Relationships: []
       }
+      payment_methods: {
+        Row: {
+          account_details: Json
+          created_at: string | null
+          display_order: number | null
+          icon_name: string | null
+          id: string
+          instructions: string | null
+          is_active: boolean | null
+          name: string
+          type: string
+          updated_at: string | null
+        }
+        Insert: {
+          account_details?: Json
+          created_at?: string | null
+          display_order?: number | null
+          icon_name?: string | null
+          id?: string
+          instructions?: string | null
+          is_active?: boolean | null
+          name: string
+          type: string
+          updated_at?: string | null
+        }
+        Update: {
+          account_details?: Json
+          created_at?: string | null
+          display_order?: number | null
+          icon_name?: string | null
+          id?: string
+          instructions?: string | null
+          is_active?: boolean | null
+          name?: string
+          type?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -229,6 +268,8 @@ export type Database = {
       }
       service_bookings: {
         Row: {
+          admin_notes: string | null
+          amount: number | null
           budget_range: string | null
           company_name: string | null
           created_at: string | null
@@ -236,6 +277,9 @@ export type Database = {
           customer_name: string
           customer_phone: string | null
           id: string
+          payment_method: string | null
+          payment_reference: string | null
+          payment_status: string | null
           project_details: string
           quantity: number | null
           selected_features: string[] | null
@@ -245,8 +289,11 @@ export type Database = {
           ticket_id: string
           timeline: string | null
           updated_at: string | null
+          user_id: string | null
         }
         Insert: {
+          admin_notes?: string | null
+          amount?: number | null
           budget_range?: string | null
           company_name?: string | null
           created_at?: string | null
@@ -254,6 +301,9 @@ export type Database = {
           customer_name: string
           customer_phone?: string | null
           id?: string
+          payment_method?: string | null
+          payment_reference?: string | null
+          payment_status?: string | null
           project_details: string
           quantity?: number | null
           selected_features?: string[] | null
@@ -263,8 +313,11 @@ export type Database = {
           ticket_id: string
           timeline?: string | null
           updated_at?: string | null
+          user_id?: string | null
         }
         Update: {
+          admin_notes?: string | null
+          amount?: number | null
           budget_range?: string | null
           company_name?: string | null
           created_at?: string | null
@@ -272,6 +325,9 @@ export type Database = {
           customer_name?: string
           customer_phone?: string | null
           id?: string
+          payment_method?: string | null
+          payment_reference?: string | null
+          payment_status?: string | null
           project_details?: string
           quantity?: number | null
           selected_features?: string[] | null
@@ -281,6 +337,7 @@ export type Database = {
           ticket_id?: string
           timeline?: string | null
           updated_at?: string | null
+          user_id?: string | null
         }
         Relationships: [
           {
