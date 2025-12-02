@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, Sparkles } from 'lucide-react';
+import { Menu, X, ChevronDown, Sparkles, User, LogOut, LayoutDashboard, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
 
 const navItems = [
   { name: 'Home', href: '/' },
@@ -34,7 +35,15 @@ export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, isAdmin, signOut, isLoading } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -143,19 +152,78 @@ export const Navbar = () => {
           ))}
         </div>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons & User Menu */}
         <div className="hidden lg:flex items-center gap-3">
-          <Link to="/contact">
-            <Button variant="ghost" size="sm" className="gap-2">
-              <Sparkles className="w-4 h-4" />
-              Free Consultation
-            </Button>
-          </Link>
-          <Link to="/services/software">
-            <Button size="sm" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground shadow-lg shadow-primary/25">
-              Get Started
-            </Button>
-          </Link>
+          {!isLoading && (
+            <>
+              {user ? (
+                <div 
+                  className="relative"
+                  onMouseEnter={() => setUserMenuOpen(true)}
+                  onMouseLeave={() => setUserMenuOpen(false)}
+                >
+                  <button className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-muted/50 transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+                      <User className="w-4 h-4 text-primary-foreground" />
+                    </div>
+                    <span className="text-sm font-medium text-foreground max-w-[100px] truncate">
+                      {user.email?.split('@')[0]}
+                    </span>
+                    <ChevronDown className={cn("w-4 h-4 transition-transform", userMenuOpen && "rotate-180")} />
+                  </button>
+                  
+                  <AnimatePresence>
+                    {userMenuOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute top-full right-0 mt-2 w-48 glass-card p-2 rounded-xl border border-border/50 shadow-xl"
+                      >
+                        <Link
+                          to="/dashboard"
+                          className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg hover:bg-primary/10 transition-colors"
+                        >
+                          <LayoutDashboard className="w-4 h-4" />
+                          Dashboard
+                        </Link>
+                        {isAdmin && (
+                          <Link
+                            to="/admin"
+                            className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg hover:bg-primary/10 transition-colors"
+                          >
+                            <Shield className="w-4 h-4" />
+                            Admin Panel
+                          </Link>
+                        )}
+                        <button
+                          onClick={handleSignOut}
+                          className="w-full flex items-center gap-2 px-4 py-2 text-sm rounded-lg hover:bg-destructive/10 text-destructive transition-colors"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          Sign Out
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <>
+                  <Link to="/auth">
+                    <Button variant="ghost" size="sm" className="gap-2">
+                      <User className="w-4 h-4" />
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to="/auth">
+                    <Button size="sm" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground shadow-lg shadow-primary/25">
+                      Get Started
+                    </Button>
+                  </Link>
+                </>
+              )}
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -207,13 +275,51 @@ export const Navbar = () => {
                   )}
                 </div>
               ))}
-              <div className="pt-4 flex flex-col gap-3">
-                <Link to="/contact">
-                  <Button variant="outline" className="w-full">Free Consultation</Button>
-                </Link>
-                <Link to="/services/software">
-                  <Button className="w-full bg-gradient-to-r from-primary to-secondary">Get Started</Button>
-                </Link>
+              <div className="pt-4 flex flex-col gap-3 border-t border-border/50">
+                {!isLoading && (
+                  <>
+                    {user ? (
+                      <>
+                        <Link to="/dashboard">
+                          <Button variant="outline" className="w-full gap-2">
+                            <LayoutDashboard className="w-4 h-4" />
+                            Dashboard
+                          </Button>
+                        </Link>
+                        {isAdmin && (
+                          <Link to="/admin">
+                            <Button variant="outline" className="w-full gap-2">
+                              <Shield className="w-4 h-4" />
+                              Admin Panel
+                            </Button>
+                          </Link>
+                        )}
+                        <Button 
+                          variant="ghost" 
+                          className="w-full gap-2 text-destructive" 
+                          onClick={handleSignOut}
+                        >
+                          <LogOut className="w-4 h-4" />
+                          Sign Out
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/auth">
+                          <Button variant="outline" className="w-full gap-2">
+                            <User className="w-4 h-4" />
+                            Sign In
+                          </Button>
+                        </Link>
+                        <Link to="/auth">
+                          <Button className="w-full bg-gradient-to-r from-primary to-secondary">
+                            Get Started
+                          </Button>
+                        </Link>
+                      </>
+                    )}
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
