@@ -13,9 +13,11 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 const Contact = () => {
   const { toast } = useToast();
+  const { data: settings } = useSiteSettings();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -77,16 +79,16 @@ const Contact = () => {
               <div className="glass-card p-6">
                 <Mail className="w-8 h-8 text-primary mb-4" />
                 <h3 className="font-heading font-semibold text-foreground mb-2">Email Us</h3>
-                <a href="mailto:info@mstechnologies.com" className="text-muted-foreground hover:text-primary transition-colors">
-                  info@mstechnologies.com
+                <a href={`mailto:${settings?.company_email || 'support@mstechnologies.company'}`} className="text-muted-foreground hover:text-primary transition-colors">
+                  {settings?.company_email || 'support@mstechnologies.company'}
                 </a>
               </div>
 
               <div className="glass-card p-6">
                 <Phone className="w-8 h-8 text-primary mb-4" />
                 <h3 className="font-heading font-semibold text-foreground mb-2">Call Us</h3>
-                <a href="tel:+921234567890" className="text-muted-foreground hover:text-primary transition-colors">
-                  +92 123 456 7890
+                <a href={`tel:${settings?.company_phone || '+923259479471'}`} className="text-muted-foreground hover:text-primary transition-colors">
+                  {settings?.company_phone || '+923259479471'}
                 </a>
               </div>
 
@@ -94,7 +96,7 @@ const Contact = () => {
                 <MapPin className="w-8 h-8 text-primary mb-4" />
                 <h3 className="font-heading font-semibold text-foreground mb-2">Visit Us</h3>
                 <p className="text-muted-foreground">
-                  Islamabad, Pakistan
+                  {settings?.company_address || 'Pakistan'}
                 </p>
               </div>
 

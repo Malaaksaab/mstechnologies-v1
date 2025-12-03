@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, Youtube, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 const footerLinks = {
   services: [
@@ -37,6 +38,8 @@ const socialLinks = [
 ];
 
 export const Footer = () => {
+  const { data: settings } = useSiteSettings();
+
   return (
     <footer className="relative bg-background border-t border-border/50">
       {/* Top gradient line */}
@@ -74,7 +77,7 @@ export const Footer = () => {
               </div>
               <div>
                 <span className="font-heading text-xl font-semibold text-foreground block">MS Technologies</span>
-                <span className="text-xs text-muted-foreground">And Digital Solutions Pvt Ltd</span>
+                <span className="text-xs text-muted-foreground">{settings?.company_tagline || 'And Digital Solutions Pvt Ltd'}</span>
               </div>
             </Link>
             <p className="text-muted-foreground mb-6 max-w-sm">
@@ -83,17 +86,17 @@ export const Footer = () => {
             
             {/* Contact Info */}
             <div className="space-y-3">
-              <a href="mailto:info@mstechnologies.com" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">
+              <a href={`mailto:${settings?.company_email || 'support@mstechnologies.company'}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">
                 <Mail className="w-4 h-4" />
-                info@mstechnologies.com
+                {settings?.company_email || 'support@mstechnologies.company'}
               </a>
-              <a href="tel:+921234567890" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">
+              <a href={`tel:${settings?.company_phone || '+923259479471'}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">
                 <Phone className="w-4 h-4" />
-                +92 123 456 7890
+                {settings?.company_phone || '+923259479471'}
               </a>
               <div className="flex items-start gap-3 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-0.5" />
-                <span>Blue Area, Islamabad, Pakistan</span>
+                <span>{settings?.company_address || 'Pakistan'}</span>
               </div>
             </div>
           </div>
@@ -158,7 +161,7 @@ export const Footer = () => {
         {/* Bottom Section */}
         <div className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} MS Technologies And Digital Solutions Pvt Ltd. All rights reserved.
+            © {new Date().getFullYear()} {settings?.company_name || 'MS Technologies And Digital Solutions Pvt Ltd'}. All rights reserved.
           </p>
           
           {/* Social Links */}
@@ -166,7 +169,7 @@ export const Footer = () => {
             {socialLinks.map((social) => (
               <a
                 key={social.name}
-                href={social.href}
+                href={settings?.social_links?.[social.name.toLowerCase()] || social.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 flex items-center justify-center rounded-lg bg-muted/50 text-muted-foreground hover:bg-primary/20 hover:text-primary transition-all"
