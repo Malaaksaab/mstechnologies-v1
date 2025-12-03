@@ -2,8 +2,11 @@ import { motion } from 'framer-motion';
 import { ArrowRight, MessageSquare, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 export const CTASection = () => {
+  const { data: settings } = useSiteSettings();
+  
   return (
     <section className="py-32 relative overflow-hidden">
       {/* Background effects */}
@@ -41,7 +44,7 @@ export const CTASection = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <a href="tel:+921234567890">
+            <a href={`tel:${settings?.company_phone || '+923259479471'}`}>
               <Button variant="cyber" size="xl">
                 <Phone className="w-5 h-5" />
                 Call Us Now
