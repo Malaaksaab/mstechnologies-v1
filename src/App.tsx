@@ -38,6 +38,7 @@ import AdminCareers from "./pages/admin/AdminCareers";
 import AdminBookings from "./pages/admin/AdminBookings";
 import AdminSettings from "./pages/admin/AdminSettings";
 import ProtectedAdminRoute from "./components/admin/ProtectedAdminRoute";
+import { WhatsAppButton } from "./components/layout/WhatsAppButton";
 
 import NotFound from "./pages/NotFound";
 
@@ -51,6 +52,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <WhatsAppButton />
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Index />} />

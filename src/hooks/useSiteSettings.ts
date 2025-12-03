@@ -8,6 +8,7 @@ export interface SiteSettings {
   company_phone: string;
   company_address: string;
   company_tagline: string;
+  whatsapp_number: string;
   social_links: Record<string, string>;
   [key: string]: any;
 }
@@ -17,8 +18,9 @@ const defaultSettings: SiteSettings = {
   company_owner: 'Malaak Saab',
   company_email: 'support@mstechnologies.company',
   company_phone: '+923259479471',
-  company_address: 'Pakistan',
+  company_address: 'Totanobandi, Pakistan (34.856030, 72.219945)',
   company_tagline: 'And Digital Solutions Pvt Ltd',
+  whatsapp_number: '+923259479471',
   social_links: {}
 };
 
