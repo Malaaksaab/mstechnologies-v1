@@ -7,8 +7,8 @@ const CookiePolicy = () => {
   return (
     <>
       <Helmet>
-        <title>Cookie Policy | Mikky Services</title>
-        <meta name="description" content="Learn about how Mikky Services uses cookies and similar technologies to improve your browsing experience." />
+        <title>Cookie Policy | MS Technologies And Digital Solutions Pvt Ltd</title>
+        <meta name="description" content="Learn about how MS Technologies And Digital Solutions Pvt Ltd uses cookies and similar technologies to improve your browsing experience." />
       </Helmet>
       <div className="min-h-screen bg-background">
         <Navbar />
@@ -19,7 +19,7 @@ const CookiePolicy = () => {
             className="max-w-4xl mx-auto prose prose-invert"
           >
             <h1 className="text-4xl font-display font-bold text-foreground mb-8">Cookie Policy</h1>
-            <p className="text-muted-foreground mb-6">Last updated: December 1, 2024</p>
+            <p className="text-muted-foreground mb-6">Last updated: December 3, 2024</p>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">1. What Are Cookies?</h2>
@@ -84,7 +84,7 @@ const CookiePolicy = () => {
                 We may use third-party services that set cookies on our behalf, including:
               </p>
               <ul className="list-disc pl-6 text-muted-foreground mb-4">
-                <li>Google Analytics for website analytics</li>
+                <li>Analytics services for website performance tracking</li>
                 <li>Payment processors for secure transactions</li>
                 <li>Social media platforms for sharing features</li>
               </ul>
@@ -101,8 +101,11 @@ const CookiePolicy = () => {
               <h2 className="text-2xl font-semibold text-foreground mb-4">7. Contact Us</h2>
               <p className="text-muted-foreground">
                 If you have questions about our use of cookies, please contact us at:<br />
-                Email: privacy@mikkyservices.com<br />
-                Address: 123 Tech Street, Digital City, DC 10001
+                <strong>MS Technologies And Digital Solutions Pvt Ltd</strong><br />
+                Owner: Malaak Saab<br />
+                Email: support@mstechnologies.company<br />
+                Phone: +923259479471<br />
+                Address: Totanobandi, Pakistan (34.856030, 72.219945)
               </p>
             </section>
           </motion.div>

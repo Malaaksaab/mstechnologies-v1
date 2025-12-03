@@ -7,8 +7,8 @@ const TermsOfService = () => {
   return (
     <>
       <Helmet>
-        <title>Terms of Service | Mikky Services</title>
-        <meta name="description" content="Read our terms of service to understand the rules and regulations governing the use of Mikky Services." />
+        <title>Terms of Service | MS Technologies And Digital Solutions Pvt Ltd</title>
+        <meta name="description" content="Read our terms of service to understand the rules and regulations governing the use of MS Technologies And Digital Solutions Pvt Ltd services." />
       </Helmet>
       <div className="min-h-screen bg-background">
         <Navbar />
@@ -19,23 +19,23 @@ const TermsOfService = () => {
             className="max-w-4xl mx-auto prose prose-invert"
           >
             <h1 className="text-4xl font-display font-bold text-foreground mb-8">Terms of Service</h1>
-            <p className="text-muted-foreground mb-6">Last updated: December 1, 2024</p>
+            <p className="text-muted-foreground mb-6">Last updated: December 3, 2024</p>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">1. Agreement to Terms</h2>
               <p className="text-muted-foreground mb-4">
-                By accessing or using the services provided by Mikky Services ("Company," "we," "us," or "our"), you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may not access our services.
+                By accessing or using the services provided by MS Technologies And Digital Solutions Pvt Ltd ("Company," "we," "us," or "our"), you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may not access our services.
               </p>
             </section>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">2. Services Description</h2>
-              <p className="text-muted-foreground mb-4">Mikky Services provides:</p>
+              <p className="text-muted-foreground mb-4">MS Technologies And Digital Solutions Pvt Ltd provides:</p>
               <ul className="list-disc pl-6 text-muted-foreground mb-4">
                 <li><strong>Software Development:</strong> Custom software, web applications, mobile apps, POS systems, and management systems</li>
                 <li><strong>Social Media Services:</strong> Account growth, engagement services, and verified account sales</li>
                 <li><strong>Digital Solutions:</strong> Device unlocking, FRP removal, Apple ID services, and technical support</li>
-                <li><strong>Investment Plans:</strong> Various investment opportunities with guaranteed returns</li>
+                <li><strong>Investment Plans:</strong> Various investment opportunities with competitive returns</li>
               </ul>
             </section>
 
@@ -54,21 +54,21 @@ const TermsOfService = () => {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">4. Payment Terms</h2>
               <p className="text-muted-foreground mb-4">
-                All payments are processed securely. Prices are subject to change without notice. Refunds are handled on a case-by-case basis according to our refund policy. For investment services, returns are subject to market conditions and the terms of the specific investment plan.
+                All payments are processed securely through our approved payment methods including JazzCash, Easypaisa, bank transfer, and international payment options. Prices are subject to change without notice. Refunds are handled on a case-by-case basis according to our refund policy. For investment services, returns are subject to market conditions and the terms of the specific investment plan.
               </p>
             </section>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">5. Intellectual Property</h2>
               <p className="text-muted-foreground mb-4">
-                All content, features, and functionality of our services are owned by Mikky Services and are protected by international copyright, trademark, and other intellectual property laws. Custom software developed for clients becomes the property of the client upon full payment.
+                All content, features, and functionality of our services are owned by MS Technologies And Digital Solutions Pvt Ltd and are protected by international copyright, trademark, and other intellectual property laws. Custom software developed for clients becomes the property of the client upon full payment.
               </p>
             </section>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">6. Limitation of Liability</h2>
               <p className="text-muted-foreground mb-4">
-                To the maximum extent permitted by law, Mikky Services shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunities, arising from your use of our services.
+                To the maximum extent permitted by law, MS Technologies And Digital Solutions Pvt Ltd shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunities, arising from your use of our services.
               </p>
             </section>
 
@@ -94,11 +94,21 @@ const TermsOfService = () => {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">10. Contact Information</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">10. Governing Law</h2>
+              <p className="text-muted-foreground mb-4">
+                These Terms shall be governed by and construed in accordance with the laws of Pakistan. Any disputes arising from these Terms shall be resolved in the courts of Pakistan.
+              </p>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-semibold text-foreground mb-4">11. Contact Information</h2>
               <p className="text-muted-foreground">
                 For questions about these Terms, contact us at:<br />
-                Email: legal@mikkyservices.com<br />
-                Address: 123 Tech Street, Digital City, DC 10001
+                <strong>MS Technologies And Digital Solutions Pvt Ltd</strong><br />
+                Owner: Malaak Saab<br />
+                Email: support@mstechnologies.company<br />
+                Phone: +923259479471<br />
+                Address: Totanobandi, Pakistan (34.856030, 72.219945)
               </p>
             </section>
           </motion.div>

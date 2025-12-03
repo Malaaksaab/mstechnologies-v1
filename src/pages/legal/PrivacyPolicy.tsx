@@ -7,8 +7,8 @@ const PrivacyPolicy = () => {
   return (
     <>
       <Helmet>
-        <title>Privacy Policy | Mikky Services</title>
-        <meta name="description" content="Read our privacy policy to understand how Mikky Services collects, uses, and protects your personal information." />
+        <title>Privacy Policy | MS Technologies And Digital Solutions Pvt Ltd</title>
+        <meta name="description" content="Read our privacy policy to understand how MS Technologies And Digital Solutions Pvt Ltd collects, uses, and protects your personal information." />
       </Helmet>
       <div className="min-h-screen bg-background">
         <Navbar />
@@ -19,12 +19,12 @@ const PrivacyPolicy = () => {
             className="max-w-4xl mx-auto prose prose-invert"
           >
             <h1 className="text-4xl font-display font-bold text-foreground mb-8">Privacy Policy</h1>
-            <p className="text-muted-foreground mb-6">Last updated: December 1, 2024</p>
+            <p className="text-muted-foreground mb-6">Last updated: December 3, 2024</p>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">1. Introduction</h2>
               <p className="text-muted-foreground mb-4">
-                Welcome to Mikky Services ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
+                Welcome to MS Technologies And Digital Solutions Pvt Ltd ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
               </p>
             </section>
 
@@ -96,8 +96,11 @@ const PrivacyPolicy = () => {
                 If you have questions about this Privacy Policy or our data practices, please contact us at:
               </p>
               <p className="text-muted-foreground">
-                Email: privacy@mikkyservices.com<br />
-                Address: 123 Tech Street, Digital City, DC 10001
+                <strong>MS Technologies And Digital Solutions Pvt Ltd</strong><br />
+                Owner: Malaak Saab<br />
+                Email: support@mstechnologies.company<br />
+                Phone: +923259479471<br />
+                Address: Totanobandi, Pakistan (34.856030, 72.219945)
               </p>
             </section>
           </motion.div>
