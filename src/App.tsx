@@ -37,6 +37,7 @@ import AdminBlog from "./pages/admin/AdminBlog";
 import AdminCareers from "./pages/admin/AdminCareers";
 import AdminBookings from "./pages/admin/AdminBookings";
 import AdminSettings from "./pages/admin/AdminSettings";
+import AdminProfile from "./pages/admin/AdminProfile";
 import ProtectedAdminRoute from "./components/admin/ProtectedAdminRoute";
 import { WhatsAppButton } from "./components/layout/WhatsAppButton";
 
@@ -85,6 +86,7 @@ const App = () => (
               <Route path="/admin/careers" element={<ProtectedAdminRoute><AdminCareers /></ProtectedAdminRoute>} />
               <Route path="/admin/bookings" element={<ProtectedAdminRoute><AdminBookings /></ProtectedAdminRoute>} />
               <Route path="/admin/settings" element={<ProtectedAdminRoute><AdminSettings /></ProtectedAdminRoute>} />
+              <Route path="/admin/profile" element={<ProtectedAdminRoute><AdminProfile /></ProtectedAdminRoute>} />
               
               {/* 404 */}
               <Route path="*" element={<NotFound />} />

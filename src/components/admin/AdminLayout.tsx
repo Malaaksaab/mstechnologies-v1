@@ -7,7 +7,12 @@ import {
   TrendingUp,
   ArrowLeft,
   Menu,
-  X
+  X,
+  FileText,
+  Briefcase,
+  Calendar,
+  Settings,
+  User
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
@@ -25,6 +30,11 @@ const navItems = [
   { icon: Share2, title: 'Social Media', href: '/admin/social-media' },
   { icon: Smartphone, title: 'Digital Services', href: '/admin/digital' },
   { icon: TrendingUp, title: 'Investment Plans', href: '/admin/investments' },
+  { icon: FileText, title: 'Blog Posts', href: '/admin/blog' },
+  { icon: Briefcase, title: 'Careers', href: '/admin/careers' },
+  { icon: Calendar, title: 'Bookings', href: '/admin/bookings' },
+  { icon: Settings, title: 'Settings', href: '/admin/settings' },
+  { icon: User, title: 'Profile', href: '/admin/profile' },
 ];
 
 const AdminLayout = ({ children, title, description }: AdminLayoutProps) => {
