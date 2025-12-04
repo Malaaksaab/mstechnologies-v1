@@ -12,7 +12,8 @@ import {
   Briefcase,
   Calendar,
   Settings,
-  User
+  User,
+  Activity
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
@@ -26,6 +27,7 @@ interface AdminLayoutProps {
 
 const navItems = [
   { icon: LayoutDashboard, title: 'Dashboard', href: '/admin' },
+  { icon: Activity, title: 'Monitoring', href: '/admin/monitoring' },
   { icon: Code, title: 'Software Services', href: '/admin/software' },
   { icon: Share2, title: 'Social Media', href: '/admin/social-media' },
   { icon: Smartphone, title: 'Digital Services', href: '/admin/digital' },
