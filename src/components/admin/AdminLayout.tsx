@@ -28,6 +28,7 @@ interface AdminLayoutProps {
 const navItems = [
   { icon: LayoutDashboard, title: 'Dashboard', href: '/admin' },
   { icon: Activity, title: 'Monitoring', href: '/admin/monitoring' },
+  { icon: User, title: 'Users', href: '/admin/users' },
   { icon: Code, title: 'Software Services', href: '/admin/software' },
   { icon: Share2, title: 'Social Media', href: '/admin/social-media' },
   { icon: Smartphone, title: 'Digital Services', href: '/admin/digital' },
@@ -36,7 +37,6 @@ const navItems = [
   { icon: Briefcase, title: 'Careers', href: '/admin/careers' },
   { icon: Calendar, title: 'Bookings', href: '/admin/bookings' },
   { icon: Settings, title: 'Settings', href: '/admin/settings' },
-  { icon: User, title: 'Profile', href: '/admin/profile' },
 ];
 
 const AdminLayout = ({ children, title, description }: AdminLayoutProps) => {
