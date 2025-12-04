@@ -38,8 +38,10 @@ import AdminCareers from "./pages/admin/AdminCareers";
 import AdminBookings from "./pages/admin/AdminBookings";
 import AdminSettings from "./pages/admin/AdminSettings";
 import AdminProfile from "./pages/admin/AdminProfile";
+import AdminMonitoring from "./pages/admin/AdminMonitoring";
 import ProtectedAdminRoute from "./components/admin/ProtectedAdminRoute";
 import { WhatsAppButton } from "./components/layout/WhatsAppButton";
+import { VisitorTracker } from "./components/layout/VisitorTracker";
 
 import NotFound from "./pages/NotFound";
 
@@ -53,6 +55,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <VisitorTracker />
             <WhatsAppButton />
             <Routes>
               {/* Public Routes */}
@@ -87,6 +90,7 @@ const App = () => (
               <Route path="/admin/bookings" element={<ProtectedAdminRoute><AdminBookings /></ProtectedAdminRoute>} />
               <Route path="/admin/settings" element={<ProtectedAdminRoute><AdminSettings /></ProtectedAdminRoute>} />
               <Route path="/admin/profile" element={<ProtectedAdminRoute><AdminProfile /></ProtectedAdminRoute>} />
+              <Route path="/admin/monitoring" element={<ProtectedAdminRoute><AdminMonitoring /></ProtectedAdminRoute>} />
               
               {/* 404 */}
               <Route path="*" element={<NotFound />} />
