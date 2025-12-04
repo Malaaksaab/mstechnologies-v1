@@ -8,6 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useCreateBooking, BookingFormData } from '@/hooks/useServiceBooking';
 import { toast } from 'sonner';
+import { bookingSchema } from '@/lib/validations/booking';
 
 interface ServiceDetailModalProps {
   isOpen: boolean;
@@ -58,6 +59,18 @@ export const ServiceDetailModal = ({ isOpen, onClose, service, serviceType }: Se
     e.preventDefault();
 
     if (!service) return;
+
+    // Validate form data with zod schema
+    const validation = bookingSchema.safeParse({
+      ...formData,
+      project_details: `${formData.project_details}\n\nSelected Features: ${selectedFeatures.join(', ') || 'All features'}\nQuantity: ${formData.quantity}`,
+    });
+    
+    if (!validation.success) {
+      const firstError = validation.error.errors[0];
+      toast.error(firstError.message);
+      return;
+    }
 
     const bookingData: BookingFormData = {
       service_id: service.id,
@@ -208,6 +221,7 @@ export const ServiceDetailModal = ({ isOpen, onClose, service, serviceType }: Se
                   value={formData.customer_name}
                   onChange={handleInputChange}
                   required
+                  maxLength={100}
                   className="mt-1"
                 />
               </div>
@@ -219,6 +233,7 @@ export const ServiceDetailModal = ({ isOpen, onClose, service, serviceType }: Se
                   value={formData.customer_email}
                   onChange={handleInputChange}
                   required
+                  maxLength={255}
                   className="mt-1"
                 />
               </div>
@@ -231,6 +246,7 @@ export const ServiceDetailModal = ({ isOpen, onClose, service, serviceType }: Se
                   name="customer_phone"
                   value={formData.customer_phone}
                   onChange={handleInputChange}
+                  maxLength={20}
                   className="mt-1"
                 />
               </div>
@@ -240,6 +256,7 @@ export const ServiceDetailModal = ({ isOpen, onClose, service, serviceType }: Se
                   name="company_name"
                   value={formData.company_name}
                   onChange={handleInputChange}
+                  maxLength={200}
                   className="mt-1"
                 />
               </div>
@@ -289,6 +306,7 @@ export const ServiceDetailModal = ({ isOpen, onClose, service, serviceType }: Se
                 onChange={handleInputChange}
                 required
                 rows={4}
+                maxLength={5000}
                 placeholder="Please describe your requirements..."
                 className="mt-1"
               />
