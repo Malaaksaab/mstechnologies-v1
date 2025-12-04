@@ -46,10 +46,10 @@ const About = () => {
         <section className="container mx-auto px-4 mb-20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { value: '15+', label: 'Years Experience' },
+              { value: '5+', label: 'Years Experience' },
               { value: '500+', label: 'Clients Served' },
               { value: '1000+', label: 'Projects Completed' },
-              { value: '50+', label: 'Team Members' },
+              { value: '25+', label: 'Team Members' },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -150,12 +150,12 @@ const About = () => {
                 <h2 className="text-3xl font-display font-bold text-foreground mb-4">
                   Leadership
                 </h2>
-                <p className="text-muted-foreground mb-6">
-                  Founded by Malaak Saab, MS Technologies was built on the vision of making 
-                  cutting-edge technology accessible to businesses of all sizes. With over 15 years 
-                  of experience in the tech industry, our leadership team brings together expertise 
-                  in software development, digital marketing, and financial technology.
-                </p>
+              <p className="text-muted-foreground mb-6">
+                Founded by Malaak Saab, MS Technologies was built on the vision of making 
+                cutting-edge technology accessible to businesses of all sizes. With years 
+                of experience in the tech industry, our leadership team brings together expertise 
+                in software development, digital marketing, and financial technology.
+              </p>
                 <p className="text-muted-foreground">
                   The "MS" in our name represents our founder's initials and our commitment to 
                   providing "Maximum Solutions" for our clients' digital needs.

@@ -19,7 +19,7 @@ const PrivacyPolicy = () => {
             className="max-w-4xl mx-auto prose prose-invert"
           >
             <h1 className="text-4xl font-display font-bold text-foreground mb-8">Privacy Policy</h1>
-            <p className="text-muted-foreground mb-6">Last updated: December 3, 2024</p>
+            <p className="text-muted-foreground mb-6">Last updated: December 4, 2025</p>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">1. Introduction</h2>
@@ -98,7 +98,7 @@ const PrivacyPolicy = () => {
               <p className="text-muted-foreground">
                 <strong>MS Technologies And Digital Solutions Pvt Ltd</strong><br />
                 Owner: Malaak Saab<br />
-                Email: support@mstechnologies.company<br />
+                Email: info@mstechnologies.company<br />
                 Phone: +923259479471<br />
                 Address: Totanobandi, Pakistan (34.856030, 72.219945)
               </p>
