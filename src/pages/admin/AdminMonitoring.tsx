@@ -85,8 +85,7 @@ const AdminMonitoring = () => {
         event: '*', 
         schema: 'public', 
         table: 'visitor_sessions' 
-      }, (payload) => {
-        console.log('Session change:', payload);
+      }, () => {
         fetchSessions();
       })
       .subscribe((status) => {
@@ -100,7 +99,6 @@ const AdminMonitoring = () => {
         schema: 'public', 
         table: 'site_events' 
       }, (payload) => {
-        console.log('New event:', payload);
         setRecentEvents(prev => [payload.new as SiteEvent, ...prev.slice(0, 49)]);
       })
       .subscribe();
@@ -112,7 +110,6 @@ const AdminMonitoring = () => {
         schema: 'public', 
         table: 'page_views' 
       }, (payload) => {
-        console.log('New page view:', payload);
         setPageViews(prev => [payload.new as PageView, ...prev.slice(0, 99)]);
       })
       .subscribe();

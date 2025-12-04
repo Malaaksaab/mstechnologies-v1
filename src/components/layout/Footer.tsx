@@ -86,9 +86,9 @@ export const Footer = () => {
             
             {/* Contact Info */}
             <div className="space-y-3">
-              <a href={`mailto:${settings?.company_email || 'support@mstechnologies.company'}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">
+              <a href={`mailto:${settings?.company_email || 'info@mstechnologies.company'}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">
                 <Mail className="w-4 h-4" />
-                {settings?.company_email || 'support@mstechnologies.company'}
+                {settings?.company_email || 'info@mstechnologies.company'}
               </a>
               <a href={`tel:${settings?.company_phone || '+923259479471'}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">
                 <Phone className="w-4 h-4" />
