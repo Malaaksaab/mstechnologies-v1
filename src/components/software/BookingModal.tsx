@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useCreateBooking, BookingFormData } from '@/hooks/useServiceBooking';
 import { SoftwareService } from '@/hooks/useSoftwareServices';
 import { toast } from 'sonner';
-
+import { bookingSchema } from '@/lib/validations/booking';
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -53,8 +53,12 @@ export const BookingModal = ({ isOpen, onClose, service }: BookingModalProps) =>
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.customer_name || !formData.customer_email || !formData.project_details) {
-      toast.error('Please fill in all required fields');
+    // Validate form data with zod schema
+    const validation = bookingSchema.safeParse(formData);
+    
+    if (!validation.success) {
+      const firstError = validation.error.errors[0];
+      toast.error(firstError.message);
       return;
     }
 
@@ -161,6 +165,7 @@ export const BookingModal = ({ isOpen, onClose, service }: BookingModalProps) =>
                       onChange={(e) => setFormData({ ...formData, customer_name: e.target.value })}
                       className="bg-muted/50 border-border"
                       required
+                      maxLength={100}
                     />
                   </div>
                   <div>
@@ -171,6 +176,7 @@ export const BookingModal = ({ isOpen, onClose, service }: BookingModalProps) =>
                       value={formData.customer_email}
                       onChange={(e) => setFormData({ ...formData, customer_email: e.target.value })}
                       className="bg-muted/50 border-border"
+                      maxLength={255}
                       required
                     />
                   </div>
@@ -184,6 +190,7 @@ export const BookingModal = ({ isOpen, onClose, service }: BookingModalProps) =>
                       value={formData.customer_phone}
                       onChange={(e) => setFormData({ ...formData, customer_phone: e.target.value })}
                       className="bg-muted/50 border-border"
+                      maxLength={20}
                     />
                   </div>
                   <div>
@@ -192,6 +199,7 @@ export const BookingModal = ({ isOpen, onClose, service }: BookingModalProps) =>
                       placeholder="Company name"
                       value={formData.company_name}
                       onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
+                      maxLength={200}
                       className="bg-muted/50 border-border"
                     />
                   </div>
@@ -243,6 +251,7 @@ export const BookingModal = ({ isOpen, onClose, service }: BookingModalProps) =>
                     value={formData.project_details}
                     onChange={(e) => setFormData({ ...formData, project_details: e.target.value })}
                     className="bg-muted/50 border-border min-h-[120px]"
+                    maxLength={5000}
                     required
                   />
                 </div>
