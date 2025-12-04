@@ -16,10 +16,10 @@ export interface SiteSettings {
 const defaultSettings: SiteSettings = {
   company_name: 'MS Technologies And Digital Solutions Pvt Ltd',
   company_owner: 'Malaak Saab',
-  company_email: 'support@mstechnologies.company',
+  company_email: 'info@mstechnologies.company',
   company_phone: '+923259479471',
   company_address: 'Totanobandi, Pakistan (34.856030, 72.219945)',
-  company_tagline: 'And Digital Solutions Pvt Ltd',
+  company_tagline: 'Advanced Digital & AI Enterprise Software Solutions',
   whatsapp_number: '+923259479471',
   social_links: {}
 };
