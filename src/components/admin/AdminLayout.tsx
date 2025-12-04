@@ -13,7 +13,8 @@ import {
   Calendar,
   Settings,
   User,
-  Activity
+  Activity,
+  Gauge
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
@@ -27,6 +28,7 @@ interface AdminLayoutProps {
 
 const navItems = [
   { icon: LayoutDashboard, title: 'Dashboard', href: '/admin' },
+  { icon: Gauge, title: 'Control Center', href: '/admin/control-center' },
   { icon: Activity, title: 'Monitoring', href: '/admin/monitoring' },
   { icon: User, title: 'Users', href: '/admin/users' },
   { icon: Code, title: 'Software Services', href: '/admin/software' },
