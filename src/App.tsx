@@ -40,6 +40,7 @@ import AdminSettings from "./pages/admin/AdminSettings";
 import AdminProfile from "./pages/admin/AdminProfile";
 import AdminMonitoring from "./pages/admin/AdminMonitoring";
 import AdminUsers from "./pages/admin/AdminUsers";
+import AdminControlCenter from "./pages/admin/AdminControlCenter";
 import ProtectedAdminRoute from "./components/admin/ProtectedAdminRoute";
 import { WhatsAppButton } from "./components/layout/WhatsAppButton";
 import { VisitorTracker } from "./components/layout/VisitorTracker";
@@ -93,6 +94,7 @@ const App = () => (
               <Route path="/admin/profile" element={<ProtectedAdminRoute><AdminProfile /></ProtectedAdminRoute>} />
               <Route path="/admin/monitoring" element={<ProtectedAdminRoute><AdminMonitoring /></ProtectedAdminRoute>} />
               <Route path="/admin/users" element={<ProtectedAdminRoute><AdminUsers /></ProtectedAdminRoute>} />
+              <Route path="/admin/control-center" element={<ProtectedAdminRoute><AdminControlCenter /></ProtectedAdminRoute>} />
               
               {/* 404 */}
               <Route path="*" element={<NotFound />} />
